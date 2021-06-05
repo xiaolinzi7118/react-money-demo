@@ -31,6 +31,8 @@ const postcssNormalize = require('postcss-normalize');
 
 const appPackageJson = require(paths.appPackageJson);
 
+const { extendDefaultPlugins } = require('svgo');
+
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 
@@ -76,6 +78,7 @@ const hasJsxRuntime = (() => {
     return false;
   }
 })();
+
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
@@ -157,6 +160,7 @@ module.exports = function (webpackEnv) {
     }
     return loaders;
   };
+
 
   return {
     mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
@@ -373,7 +377,18 @@ module.exports = function (webpackEnv) {
               test: /\.svg$/,
               use: [
                 { loader: 'svg-sprite-loader', options: {} },
-                'svgo-loader'
+                {
+                  loader: 'svgo-loader', options: {
+                    plugins: extendDefaultPlugins([
+                      {
+                        name: 'removeAttrs',
+                        params: {
+                          attrs: 'fill'
+                        }
+                      }
+                    ])
+                  }
+                }
               ]
             },
             {

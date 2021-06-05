@@ -10666,7 +10666,7 @@ svgo@^1.0.0, svgo@^1.2.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
-svgo@^2.2.0:
+svgo@^2.2.0, svgo@^2.3.0:
   version "2.3.0"
   resolved "https://registry.npm.taobao.org/svgo/download/svgo-2.3.0.tgz#6b3af81d0cbd1e19c83f5f63cec2cb98c70b5373"
   integrity sha1-azr4HQy9HhnIP19jzsLLmMcLU3M=

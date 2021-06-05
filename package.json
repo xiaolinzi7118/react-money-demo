@@ -104,6 +104,7 @@
     "@types/webpack-env": "^1.16.0",
     "node-sass": "npm:dart-sass@1.25.0",
     "svg-sprite-loader": "^6.0.7",
+    "svgo": "^2.3.0",
     "svgo-loader": "^3.0.0"
   },
   "jest": {
