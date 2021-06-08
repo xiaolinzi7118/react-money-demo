@@ -37,26 +37,26 @@ const Space = styled.div`
 `
 
 function Tags() {
-    const { tags } = useTags()
-    return (
-        <Layout>
-            <ol>
-                <TagList>
-                    {tags.map(tag =>
-                        <li key={tag.id}>
-                            <Link to={'/tags/' + tag.name}>
-                                <span>{tag.name}</span>
-                                <Icon name="right" />
-                            </Link>
-                        </li>)}
-                </TagList>
-            </ol>
-            <Center>
-                <Space />
-                <Button>新增标签</Button>
-            </Center>
-        </Layout>
-    );
+  const { tags } = useTags()
+  return (
+    <Layout>
+      <ol>
+        <TagList>
+          {tags.map(tag =>
+            <li key={tag.id}>
+              <Link to={'/tags/' + tag.id}>
+                <span>{tag.name}</span>
+                <Icon name="right" />
+              </Link>
+            </li>)}
+        </TagList>
+      </ol>
+      <Center>
+        <Space />
+        <Button>新增标签</Button>
+      </Center>
+    </Layout>
+  );
 }
 
 export default Tags;

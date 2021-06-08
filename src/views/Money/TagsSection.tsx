@@ -1,3 +1,4 @@
+import { createId } from 'lib/createId';
 import styled from 'styled-components';
 import { useTags } from 'useTags';
 
@@ -37,7 +38,7 @@ const TagsSection: React.FC<Props> = (props) => {
       if (name.indexOf(newName) >= 0) {
         window.alert('标签已存在哦~')
       } else if (newName.trim().length > 0) {
-        setTags([...tags, { id: Math.random(), name: newName }])
+        setTags([...tags, { id: createId(), name: newName }])
         window.alert('添加成功')
       }
     }

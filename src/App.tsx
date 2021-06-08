@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/tags/:tag">
+        <Route exact path="/tags/:id">
           <TagEdit />
         </Route>
         <Route exact path="/tags">
