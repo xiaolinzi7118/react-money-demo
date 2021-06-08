@@ -63,7 +63,7 @@ function Statistics() {
                 </Header>
                 <div>
                     {records.map(r => {
-                        return <Item {...r.createdAt}>
+                        return <Item>
                             <div className="tags oneLine">
                                 {r.tagIds
                                     .map(tagId => <span key={tagId}>{getName(tagId)}</span>)
