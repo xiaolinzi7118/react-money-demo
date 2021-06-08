@@ -24,16 +24,11 @@ const InputWrapper = styled.div`
   margin-top: 8px;
 `;
 const TagEdit: React.FC = () => {
-    const { findTag, updateTag } = useTags();
+    const { findTag, updateTag, deleteTag } = useTags();
     let { id } = useParams<Params>()
     const tag = findTag(parseInt(id))
-    return (
-        <Layout>
-            <Topbar>
-                <Icon name='left' />
-                <span>编辑标签</span>
-                <span></span>
-            </Topbar>
+    const tagContent = () => (
+        <div>
             <InputWrapper>
                 <Input label='标签名' type='text' value={tag.name}
                     onChange={(e) => {
@@ -42,8 +37,18 @@ const TagEdit: React.FC = () => {
             </InputWrapper>
             <Center>
                 <Space />
-                <Button>删除标签</Button>
+                <Button onClick={() => { deleteTag(tag.id) }}>删除标签</Button>
             </Center>
+        </div>
+    )
+    return (
+        <Layout>
+            <Topbar>
+                <Icon name='left' />
+                <span>编辑标签</span>
+                <span></span>
+            </Topbar>
+            {tag ? tagContent() : <Center>tag不存在</Center>}
         </Layout>
     );
 };
