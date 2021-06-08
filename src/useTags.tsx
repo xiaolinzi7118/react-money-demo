@@ -10,7 +10,13 @@ const defaultCreateId = [
 const useTags = () => {//自定义Hook
     const [tags, setTags] = useState<{ id: number, name: string }[]>(defaultCreateId);
     const findTag = (id: number) => tags.filter(t => t.id === id)[0]
-    return { tags, setTags, findTag };
+    const updateTag = (id: number, obj: { name: string }) => {
+        const index = tags.findIndex((t) => t.id === id)
+        const tagsClone = JSON.parse(JSON.stringify(tags))
+        tagsClone[index].name = obj.name
+        setTags(tagsClone)
+    }
+    return { tags, setTags, findTag, updateTag };
 };
 
 export { useTags };
