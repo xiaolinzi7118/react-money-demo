@@ -23,40 +23,41 @@ const Wrapper = styled.section`
 `;
 
 type Props = {
-  value: string[];
-  onChange: (selected: string[]) => void
+  value: number[];
+  onChange: (selected: number[]) => void
 }
 const TagsSection: React.FC<Props> = (props) => {
   const { tags, setTags } = useTags()
-  // const [selectedTags, setSelectedTags] = useState<string[]>([])
-  const selectedTags = props.value
+  // const [selectedTagIds, setSelectedTagIds] = useState<string[]>([])
+  const selectedTagIds = props.value
   const onAddTag = () => {
-    const tagName = window.prompt('请输入新标签名')
-    if (tagName !== null) {
-      if (tags.indexOf(tagName) >= 0) {
+    const newName = window.prompt('请输入新标签名')
+    const name = tags.map(t => t.name)
+    if (newName !== null) {
+      if (name.indexOf(newName) >= 0) {
         window.alert('标签已存在哦~')
-      } else if (tagName.trim().length > 0) {
-        setTags([...tags, tagName])
+      } else if (newName.trim().length > 0) {
+        setTags([...tags, { id: Math.random(), name: newName }])
         window.alert('添加成功')
       }
     }
   }
-  const onToggleTag = (tag: string) => {
-    const index = selectedTags.indexOf(tag);
+  const onToggleTag = (tagId: number) => {
+    const index = selectedTagIds.indexOf(tagId);
     if (index >= 0) {
-      props.onChange(selectedTags.filter(i => i !== tag))
+      props.onChange(selectedTagIds.filter(i => i !== tagId))
     } else {
-      props.onChange([...selectedTags, tag])
+      props.onChange([...selectedTagIds, tagId])
     }
   }
-  const getClass = (tag: string) => selectedTags.indexOf(tag) >= 0 ? 'selected' : '';
+  const getClass = (tagId: number) => selectedTagIds.indexOf(tagId) >= 0 ? 'selected' : '';
   return (
     <Wrapper>
       <ol>
         {tags.map(tag =>
-          <li key={tag} onClick={() => { onToggleTag(tag) }}
-            className={getClass(tag)}>
-            {tag}
+          <li key={tag.id} onClick={() => { onToggleTag(tag.id) }}
+            className={getClass(tag.id)}>
+            {tag.name}
           </li>
         )}
       </ol>
