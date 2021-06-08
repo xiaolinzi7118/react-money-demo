@@ -62,8 +62,9 @@ const NumberPadSection: React.FC<Props> = (props) => {
       _setOutput(count.slice(0, 15))
     } else if (count.length === 0) {
       _setOutput('0')
+    } else {
+      _setOutput(count)
     }
-    _setOutput(count)
     props.onChange(parseFloat(count))
   }
   const onClickButton = (e: React.MouseEvent) => {
@@ -103,6 +104,7 @@ const NumberPadSection: React.FC<Props> = (props) => {
         break;
       case 'OK':
         props.onOk()
+        _setOutput('0')
         break;
     }
   }
