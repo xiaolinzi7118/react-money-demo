@@ -1,6 +1,8 @@
+import { createRecordId } from 'lib/createRecordId';
 import { useEffect, useRef, useState } from 'react';
 
 export type RecordItem = {
+    id: number,
     tagIds: number[]
     note: string
     category: '+' | '-'
@@ -30,7 +32,7 @@ export const useRecords = () => {
             alert('请选择标签');
             return false;
         }
-        const record = { ...newRecord, createdAt: (new Date()).toISOString() };
+        const record = { ...newRecord, id: createRecordId(), createdAt: (new Date()).toISOString() };
         setRecords([...records, record]);
         return true;
     };

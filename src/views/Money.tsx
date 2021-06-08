@@ -13,6 +13,7 @@ const MyLayout = styled(Layout)`
 `
 
 const defaultFormData = {
+    id: 0,
     tagIds: [] as number[],
     note: '',
     category: '-' as '-' | '+',

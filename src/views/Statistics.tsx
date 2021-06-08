@@ -50,20 +50,20 @@ function Statistics() {
         if (a[0] < b[0]) return 1;
         return 0;
     });
-
+    console.log('xxxx', category)
     return (
         <Layout>
             <CategoryWrapper>
                 <CategorySection value={category}
                     onChange={value => setCategory(value)} />
             </CategoryWrapper>
-            {array.map(([date, records]) => <div>
+            {array.map(([date, records]) => <div key={Math.random().toString(16).slice(2)}>
                 <Header>
                     {date}
                 </Header>
                 <div>
                     {records.map(r => {
-                        return <Item>
+                        return <Item key={Math.random().toString(16)}>
                             <div className="tags oneLine">
                                 {r.tagIds
                                     .map(tagId => <span key={tagId}>{getName(tagId)}</span>)
