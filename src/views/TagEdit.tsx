@@ -3,7 +3,7 @@ import { Center, Space } from "components/CenterSpace";
 import Icon from "components/icons";
 import { Input } from "components/Input";
 import Layout from "components/Layout";
-import { useParams } from "react-router";
+import { useHistory, useParams } from "react-router";
 import styled from "styled-components";
 import { useTags } from "useTags";
 
@@ -41,10 +41,14 @@ const TagEdit: React.FC = () => {
             </Center>
         </div>
     )
+    const history = useHistory()
+    const onClickBack = () => {
+        history.goBack()
+    }
     return (
         <Layout>
             <Topbar>
-                <Icon name='left' />
+                <Icon name='left' onClick={onClickBack} />
                 <span>编辑标签</span>
                 <span></span>
             </Topbar>

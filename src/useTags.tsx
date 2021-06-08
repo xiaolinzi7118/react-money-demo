@@ -1,28 +1,49 @@
 import { createId } from 'lib/createId';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-const defaultCreateId = [
-    { id: createId(), name: '衣' },
-    { id: createId(), name: '食' },
-    { id: createId(), name: '住' },
-    { id: createId(), name: '行' }
-];
 const useTags = () => {//自定义Hook
-    const [tags, setTags] = useState<{ id: number, name: string }[]>(defaultCreateId);
+    const [tags, setTags] = useState<{ id: number, name: string }[]>([]);
+    const count = useRef(0);
+    useEffect(() => {
+        let localTags = JSON.parse(window.localStorage.getItem('tags') || '[]')
+        if (localTags.length === 0) {
+            localTags = [
+                { id: createId(), name: '衣' },
+                { id: createId(), name: '食' },
+                { id: createId(), name: '住' },
+                { id: createId(), name: '行' }
+            ]
+        }
+        setTags(localTags)
+    }, [])
+    useEffect(() => {
+        count.current += 1
+    })
+    useEffect(() => {
+        if (count.current > 1) {
+            window.localStorage.setItem('tags', JSON.stringify(tags))
+        }
+    }, [tags])
     const findTag = (id: number) => tags.filter(t => t.id === id)[0]
     const updateTag = (id: number, obj: { name: string }) => {
-        const index = tags.findIndex((t) => t.id === id)
-        const tagsClone = JSON.parse(JSON.stringify(tags))
-        tagsClone[index].name = obj.name
-        setTags(tagsClone)
+        setTags(tags.map(t => t.id === id ? { id, name: obj.name } : t))
     }
     const deleteTag = (id: number) => {
-        const index = tags.findIndex((t) => t.id === id)
-        const tagsClone = JSON.parse(JSON.stringify(tags))
-        tagsClone.splice(index, 1)
-        setTags(tagsClone)
+        setTags(tags.filter(t => t.id !== id))
     }
-    return { tags, setTags, findTag, updateTag, deleteTag };
+    const onAddTag = () => {
+        const newName = window.prompt('请输入新标签名')
+        const name = tags.map(t => t.name)
+        if (newName !== null && newName.trim().length !== 0) {
+            if (name.indexOf(newName) >= 0) {
+                window.alert('标签已存在哦~')
+            } else {
+                setTags([...tags, { id: createId(), name: newName }])
+                window.alert('添加成功')
+            }
+        }
+    }
+    return { tags, setTags, findTag, updateTag, deleteTag, onAddTag };
 };
 
 export { useTags };

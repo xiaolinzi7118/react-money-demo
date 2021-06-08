@@ -1,4 +1,3 @@
-import { createId } from 'lib/createId';
 import styled from 'styled-components';
 import { useTags } from 'useTags';
 
@@ -28,21 +27,9 @@ type Props = {
   onChange: (selected: number[]) => void
 }
 const TagsSection: React.FC<Props> = (props) => {
-  const { tags, setTags } = useTags()
+  const { tags, onAddTag } = useTags()
   // const [selectedTagIds, setSelectedTagIds] = useState<string[]>([])
   const selectedTagIds = props.value
-  const onAddTag = () => {
-    const newName = window.prompt('请输入新标签名')
-    const name = tags.map(t => t.name)
-    if (newName !== null) {
-      if (name.indexOf(newName) >= 0) {
-        window.alert('标签已存在哦~')
-      } else if (newName.trim().length > 0) {
-        setTags([...tags, { id: createId(), name: newName }])
-        window.alert('添加成功')
-      }
-    }
-  }
   const onToggleTag = (tagId: number) => {
     const index = selectedTagIds.indexOf(tagId);
     if (index >= 0) {
