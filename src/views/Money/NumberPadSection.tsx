@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.section`
@@ -56,14 +56,14 @@ type Props = {
   onOk: () => void
 }
 const NumberPadSection: React.FC<Props> = (props) => {
-  // const [output, _setOutput] = useState('0')
-  const output = props.value.toString()
+  const [output, _setOutput] = useState(props.value.toString())
   const setOutput = (count: string) => {
     if (count.length > 16) {
-      props.onChange(parseFloat(output.slice(0, 15)))
+      _setOutput(count.slice(0, 15))
     } else if (count.length === 0) {
-      props.onChange(0)
+      _setOutput('0')
     }
+    _setOutput(count)
     props.onChange(parseFloat(count))
   }
   const onClickButton = (e: React.MouseEvent) => {
