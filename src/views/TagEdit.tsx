@@ -5,7 +5,7 @@ import { Input } from "components/Input";
 import Layout from "components/Layout";
 import { useHistory, useParams } from "react-router";
 import styled from "styled-components";
-import { useTags } from "useTags";
+import { useTags } from "hooks/useTags";
 
 type Params = {
     id: string

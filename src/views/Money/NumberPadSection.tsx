@@ -53,6 +53,7 @@ const Wrapper = styled.section`
 type Props = {
   value: number;
   onChange: (value: number) => void
+  onOk: () => void
 }
 const NumberPadSection: React.FC<Props> = (props) => {
   // const [output, _setOutput] = useState('0')
@@ -101,6 +102,7 @@ const NumberPadSection: React.FC<Props> = (props) => {
         setOutput('0')
         break;
       case 'OK':
+        props.onOk()
         break;
     }
   }
